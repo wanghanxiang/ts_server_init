@@ -1,5 +1,5 @@
 {
-  "name": "protobuffer_nodejs",
+  "name": "ts_server_init",
   "version": "1.0.0",
   "description": "test This project has some public util method",
   "main": "index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wanghanxiang/protoBuffer_nodejs.git"
+    "url": "git+https://github.com/wanghanxiang/ts_server_init.git"
   },
   "keywords": [],
   "author": "",
