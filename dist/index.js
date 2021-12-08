@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const cors = require("@koa/cors");
 const limiterReq_1 = require("./util/limiterReq");
 const routes_1 = require("./routes/routes");
-const redisTool_1 = require("./util/redisTool");
+const redis_1 = require("./glues/redis");
 const ratelimit = require("koa-ratelimit");
 const koaBody = require("koa-body");
 const koa_1 = __importDefault(require("koa"));
@@ -27,7 +27,7 @@ class App {
                 "maxFileSize": 200 * 1024 * 1024
             }
         }));
-        this.app.use(ratelimit(((0, limiterReq_1.getLimiterConfig)((ctx) => ctx.ip, redisTool_1.limiterRedis))));
+        this.app.use(ratelimit(((0, limiterReq_1.getLimiterConfig)((ctx) => ctx.ip, redis_1.redis))));
         (0, routes_1.addRouter)(this.router);
         this.app.use(this.router.routes()).use(this.router.allowedMethods());
         this.app.use(async (ctx) => {
