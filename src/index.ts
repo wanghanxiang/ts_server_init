@@ -1,7 +1,7 @@
 import cors = require("@koa/cors");
 import { getLimiterConfig } from "./util/limiterReq";
 import { addRouter } from "./routes/routes";
-import { limiterRedis, redisDb0 } from "./util/redisTool";
+import { redis } from "./glues/redis";
 const ratelimit = require("koa-ratelimit");
 const koaBody = require("koa-body");
 
@@ -39,7 +39,7 @@ class App {
         }));
 
         // http请求次数限制(目前使用用户的ip来限制的)
-        this.app.use(ratelimit((getLimiterConfig((ctx: Context) => ctx.ip, limiterRedis))));
+        this.app.use(ratelimit((getLimiterConfig((ctx: Context) => ctx.ip, redis))));
 
         // add route
         addRouter(this.router);
