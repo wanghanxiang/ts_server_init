@@ -7,6 +7,7 @@ const koaBody = require("koa-body");
 
 import Koa, { Context } from 'koa';              // 导入koa
 import Router from "koa-router";    // 导入koa-router
+import createConnection from "./glues";
 
 class App {
     /**
@@ -37,6 +38,9 @@ class App {
                 "maxFileSize": 200 * 1024 * 1024	// 设置上传文件大小最大限制，默认2M
             }
         }));
+        
+        //链接数据库
+        await createConnection();
 
         // http请求次数限制(目前使用用户的ip来限制的)
         this.app.use(ratelimit((getLimiterConfig((ctx: Context) => ctx.ip, redis))));
